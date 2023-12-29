@@ -72,6 +72,7 @@ app.delete('/employe/:Id', (req, res) => {
         }
     });
 });
+
 const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 app.post('/add-emp', (req, res) => {
     var name = req.body.e_name;
@@ -92,6 +93,7 @@ app.post('/add-emp', (req, res) => {
         }
     );
 });
+
 app.put('/update-emp/:id', (req, res) => {
     const id = req.params.id;
     var name = req.body.e_name;
@@ -111,6 +113,7 @@ app.put('/update-emp/:id', (req, res) => {
         }
     );
 });
+
 app.get('/get-doctors', (req, res) => {
     connection.query('SELECT * FROM doctors', (err, row) => {
         if (err) {
@@ -181,7 +184,7 @@ app.post('/insert-patient-details', (req, res) => {
     var DoctorId = req.body.DoctorId;
     connection.query(
         `INSERT INTO patient (Name, Email, Gender, DOB, Address, Note, Mobile_No, IsCheck, CountryId, DoctorId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [Name,Email,Gender,DOB,Address,Note,Mobile_No,IsCheck,CountryId, DoctorId],
+        [Name, Email, Gender, DOB, Address, Note, Mobile_No, IsCheck, CountryId, DoctorId],
         (err, row) => {
             if (err) {
                 console.log(err);
@@ -199,15 +202,15 @@ app.put('/update-patient-details/:Id', (req, res) => {
     var Email = req.body.Email;
     var Gender = req.body.Gender;
     var DOB = req.body.DOB;
-    var Address =  req.body.Address;
+    var Address = req.body.Address;
     var Note = req.body.Note;
     var Mobile_No = req.body.Mobile_No;
     var IsCheck = req.body.IsChecked;
-    var CountryId =  req.body.CountryId;
-    var DoctorId =  req.body.DoctorId;
+    var CountryId = req.body.CountryId;
+    var DoctorId = req.body.DoctorId;
     connection.query(
         "UPDATE patient SET Name =?,Email=?,Gender=?,Dob=?,Address=?,Note=?,Mobile_no=?,IsCheck=?,countryid=?,doctorid=? WHERE Id =" + Id,
-        [Name, Email, Gender, DOB, Address, Note, Mobile_No, IsCheck, CountryId,DoctorId],
+        [Name, Email, Gender, DOB, Address, Note, Mobile_No, IsCheck, CountryId, DoctorId],
         (err, row) => {
             if (err) {
                 console.log(err);
@@ -219,9 +222,9 @@ app.put('/update-patient-details/:Id', (req, res) => {
         }
     );
 });
-app.get('/get-Patient-Details-By/:Id', (req, res) => { 
+app.get('/get-Patient-Details-By/:Id', (req, res) => {
     var Id = req.params.Id;
-    connection.query(`SELECT * FROM patient Where Id=`+Id, (err, row) => {
+    connection.query(`SELECT * FROM patient Where Id=` + Id, (err, row) => {
         if (err) {
             console.log(err);
             res.status(500).send('Internal Server Error');
@@ -231,6 +234,7 @@ app.get('/get-Patient-Details-By/:Id', (req, res) => {
         }
     });
 });
+
 app.listen(8080, () => {
     console.log("server is connected");
 });
