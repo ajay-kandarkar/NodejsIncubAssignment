@@ -72,7 +72,6 @@ app.delete('/employe/:Id', (req, res) => {
         }
     });
 });
-
 const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 app.post('/add-emp', (req, res) => {
     var name = req.body.e_name;
