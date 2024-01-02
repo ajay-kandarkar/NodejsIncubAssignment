@@ -158,6 +158,8 @@ app.get('/get-allpatient-details', cors(), (req, res) => {
         }
     });
 });
+
+
 app.delete('/delete-patient/:Id', (req, res) => {
     const deleteId = req.params.Id;
     connection.query('DELETE FROM patient WHERE Id=' + deleteId, (err, row) => {
@@ -170,6 +172,8 @@ app.delete('/delete-patient/:Id', (req, res) => {
         }
     });
 });
+
+
 app.post('/insert-patient-details', (req, res) => {
     var Name = req.body.Name;
     var Email = req.body.Email;
@@ -195,6 +199,7 @@ app.post('/insert-patient-details', (req, res) => {
         }
     );
 });
+
 app.put('/update-patient-details/:Id', (req, res) => {
     var Id = req.params.Id;
     var Name = req.body.Name;
@@ -233,6 +238,61 @@ app.get('/get-Patient-Details-By/:Id', (req, res) => {
         }
     });
 });
+
+
+
+app.get('/get-patient-history', (req, res) => {
+    connection.query('SELECT * FROM treatmentHistory', (err, row) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log(row);
+            res.status(200).json(row);
+        }
+    });
+});
+
+
+app.post('/insert-patient-history', (req, res) => {
+    var HospitalName = req.body.HospitalName;
+    var TreatmentDetails = req.body.TreatmentDetails;
+    var FormDate = req.body.FormDate;
+    var ToDate = req.body.ToDate;
+    var patientId = req.body.patientId;
+    connection.query(
+        `insert into treatmentHistory (HospitalName,TreatmentDetails,FormDate,ToDate,patientId) VALUES (?, ?, ?, ?, ?)`,
+        [HospitalName, TreatmentDetails, FormDate, ToDate, patientId],
+        (err, row) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            } else {
+                console.log(row);
+                res.status(200).json(row);
+            }
+        }
+    );
+});
+
+
+
+app.delete('/delete-treatmentHistory/:Id', (req, res) => {
+    const deleteId = req.params.Id;
+    connection.query('DELETE FROM treatmentHistory WHERE Id=' + deleteId, (err, row) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log(row);
+            res.status(200).json(row);
+        }
+    });
+});
+
+
+
+  
 
 app.listen(8080, () => {
     console.log("server is connected");
