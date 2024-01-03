@@ -226,6 +226,8 @@ app.put('/update-patient-details/:Id', (req, res) => {
         }
     );
 });
+
+
 app.get('/get-Patient-Details-By/:Id', (req, res) => {
     var Id = req.params.Id;
     connection.query(`SELECT * FROM patient Where Id=` + Id, (err, row) => {
@@ -277,7 +279,7 @@ app.post('/insert-patient-history', (req, res) => {
 
 
 
-app.delete('/delete-treatmentHistory/:Id', (req, res) => {
+app.delete('/delete-treatment-history/:Id', (req, res) => {
     const deleteId = req.params.Id;
     connection.query('DELETE FROM treatmentHistory WHERE Id=' + deleteId, (err, row) => {
         if (err) {
@@ -291,6 +293,28 @@ app.delete('/delete-treatmentHistory/:Id', (req, res) => {
 });
 
 
+app.put('/update-patient-history/:Id', (req, res) => {
+    var Id = req.params.Id;
+    var HospitalName = req.body.hospitalName;
+    var TreatmentDetails = req.body.treatmentDetails;
+    var FormDate = req.body.formDate;
+    var ToDate = req.body.toDate;
+    var patientId = req.body.patientId;
+   
+    connection.query(
+        "UPDATE treatmentHistory SET HospitalName =?,TreatmentDetails=?,FormDate=?,ToDate=?,patientId=? WHERE Id =" + Id,
+        [HospitalName, TreatmentDetails, FormDate, ToDate,patientId],
+        (err, row) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            } else {
+                console.log(row);
+                res.status(200).json(row);
+            }
+        }
+    );
+});
 
   
 
