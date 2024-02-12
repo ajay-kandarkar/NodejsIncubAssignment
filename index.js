@@ -86,6 +86,7 @@ app.get('/state/:Id', (req, res) => {
         }
     });
 });
+
 app.get('/get-allpatient-details', cors(), (req, res) => {
     connection.query(`SELECT * FROM patient`, (err, row) => {
         if (err) {
