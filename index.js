@@ -48,70 +48,9 @@ app.get('/patientdetails', (req, res) => {
         }
     });
 });
-app.get('/employe/:id', (req, res) => {
-    const fetchid = req.params.id;
-    connection.query('SELECT * FROM employee WHERE e_id=' + fetchid, (err, row) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('Internal Server Error');
-        } else {
-            console.log(row);
-            res.status(200).json(row);
-        }
-    });
-});
-app.delete('/employe/:Id', (req, res) => {
-    const deleteid = req.params.Id;
-    connection.query('DELETE FROM employee WHERE e_id=' + deleteid, (err, row) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('Internal Server Error');
-        } else {
-            console.log(row);
-            res.status(200).json(row);
-        }
-    });
-});
-const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-app.post('/add-emp', (req, res) => {
-    var name = req.body.e_name;
-    var email = req.body.e_email;
-    var salary = req.body.e_sal;
-    if (!emailRegexp.test(email)) {
-        return res.status(500).send('Email is not valid');
-    }
-    connection.query(
-        `INSERT INTO employee (e_name,e_email,e_sal) VALUES (?, ?,?)`,
-        [name, email, salary],
-        (err, row) => {
-            if (err && emailRegexp.test(email)) {
-                res.status(500).send('Internal Server Error');
-            } else {
-                res.status(200).json(row);
-            }
-        }
-    );
-});
 
-app.put('/update-emp/:id', (req, res) => {
-    const id = req.params.id;
-    var name = req.body.e_name;
-    var email = req.body.e_email;
-    var salary = req.body.e_sal;
-    connection.query(
-        "UPDATE employee SET e_name = ?,e_email=?,e_sal=? WHERE e_id =" + id,
-        [name, email, salary],
-        (err, row) => {
-            if (err) {
-                console.log(err);
-                res.status(500).send('Internal Server Error');
-            } else {
-                console.log(row);
-                res.status(200).json(row);
-            }
-        }
-    );
-});
+
+
 
 app.get('/get-doctors', (req, res) => {
     connection.query('SELECT * FROM doctors', (err, row) => {
