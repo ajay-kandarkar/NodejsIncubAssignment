@@ -258,6 +258,6 @@ app.put('/update-patient-history/:Id', (req, res) => {
 
   
 
-app.listen(8080, () => {
+app.listen(80, () => {
     console.log("server is connected");
 });
